@@ -2,220 +2,222 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VTC Antibes - Votre Chauffeur Privé</title>
+  <title>Votre Chauffeur Privé VTC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      margin: 0;
       font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+      margin: 0;
+      background-color: #f3f3f3;
     }
-
     header {
-      background-image: url('javygo-qcMJ_BeDHVE-unsplash.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 350px;
+      background: url('javygo-qcMJ_BeDHVE-unsplash.jpg') center/cover no-repeat;
+      height: 60vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
       color: white;
     }
-
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background-color: #f3f3f3;
+      border-top-left-radius: 50% 100px;
+      border-top-right-radius: 50% 100px;
+      z-index: 1;
+    }
     header h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-      text-shadow: 0 0 5px #000;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      z-index: 2;
+      position: relative;
     }
-
     header p {
-      font-size: 18px;
-      text-shadow: 0 0 4px #000;
+      font-size: 1.2rem;
+      z-index: 2;
+      position: relative;
     }
-
-    .services {
-      background: white;
-      margin-top: -40px;
-      border-top-left-radius: 40px;
-      border-top-right-radius: 40px;
-      padding: 40px 20px 20px;
+    .section {
+      padding: 60px 20px 40px;
       text-align: center;
+      background-color: white;
+      border-radius: 30px;
+      margin: -40px auto 20px;
+      max-width: 1000px;
+      z-index: 2;
+      position: relative;
     }
-
-    .services h2 {
-      color: #007bff;
-      margin-bottom: 30px;
+    h2 {
+      color: #0066ff;
+      font-size: 1.8rem;
     }
-
-    .card-container {
+    .services {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 20px;
+      margin-top: 30px;
     }
-
-    .card {
-      background: #f0f5ff;
+    .service-box {
+      background-color: #eef3ff;
       padding: 20px;
-      border-radius: 15px;
-      width: 280px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      flex: 1 1 250px;
+      max-width: 280px;
     }
-
-    .card h3 {
-      color: #007bff;
+    .service-box h3 {
+      color: #0066ff;
       margin-bottom: 10px;
     }
-
-    .info {
-      margin: 20px 0;
-      font-size: 15px;
+    .note {
+      margin-top: 10px;
+      font-size: 0.95rem;
     }
-
-    .estimation {
-      background: #fff;
-      text-align: center;
-      padding: 30px 20px;
-      margin: 0;
+    .tarif-form {
+      margin-top: 40px;
     }
-
-    .estimation h3 {
-      color: #007bff;
-      margin-bottom: 20px;
-    }
-
-    input, button {
-      width: 90%;
-      max-width: 400px;
+    input {
       padding: 12px;
-      margin-bottom: 15px;
-      font-size: 16px;
+      width: 90%;
+      margin: 10px auto;
+      display: block;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      border-radius: 8px;
     }
-
     button {
-      background-color: #007bff;
+      background-color: #0066ff;
       color: white;
+      padding: 14px 30px;
       border: none;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
+      margin-top: 10px;
     }
-
+    .tarif-note {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #555;
+    }
     .whatsapp-button {
-      background-color: #25D366;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 30px;
       display: inline-block;
+      background-color: #25d366;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
       text-decoration: none;
       font-weight: bold;
+      margin-top: 20px;
     }
-
-    .footer {
+    footer {
+      background-color: #f3f3f3;
+      padding: 40px 20px 20px;
       text-align: center;
-      padding: 30px 20px;
-      font-size: 14px;
-      background-color: #f8f8f8;
+      font-size: 0.95rem;
+      color: #333;
     }
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 24px;
+    @media screen and (max-width: 768px) {
+      header {
+        height: 50vh;
       }
-
-      .card {
-        width: 100%;
+      header::after {
+        height: 50px;
+        border-top-left-radius: 50% 50px;
+        border-top-right-radius: 50% 50px;
       }
-
-      .services {
-        padding-top: 60px;
+      .section {
+        padding: 40px 15px 20px;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Votre Chauffeur Privé VTC</h1>
-    <p>Antibes • Cannes • Nice • Monaco • Saint-Tropez</p>
+    <div>
+      <h1>Votre Chauffeur Privé VTC</h1>
+      <p>Antibes • Cannes • Nice • Monaco • Saint-Tropez</p>
+    </div>
   </header>
 
-  <section class="services">
+  <section class="section">
     <h2>Nos services</h2>
-    <div class="card-container">
-      <div class="card">
+    <div class="services">
+      <div class="service-box">
         <h3>Transferts aéroports & gares</h3>
         <p>Nice–Côte d’Azur, Cannes–Mandelieu, Monaco Heliport…</p>
       </div>
-      <div class="card">
+      <div class="service-box">
         <h3>Mise à disposition</h3>
         <p>Chauffeur dédié pour vos rendez-vous professionnels, personnels ou touristiques.<br><strong>Tarif : 80 € TTC / heure</strong></p>
       </div>
-      <div class="card">
+      <div class="service-box">
         <h3>Événementiel</h3>
         <p>Navettes VIP pour mariages, festivals, congrès et soirées privées.</p>
       </div>
     </div>
-    <p class="info">Flotte de véhicules disponible sur demande avec chauffeurs partenaires de confiance.</p>
+    <p class="note">Flotte de véhicules disponible sur demande avec chauffeurs partenaires de confiance.</p>
+
+    <div class="tarif-form">
+      <h2>Estimez votre course</h2>
+      <input type="text" id="start" placeholder="Adresse de départ">
+      <input type="text" id="end" placeholder="Adresse d'arrivée">
+      <button onclick="calculateFare()">Calculer le tarif</button>
+      <p class="tarif-note" id="result"></p>
+      <p class="tarif-note">Estimation indicative – tarif à confirmer lors de la réservation avec le chauffeur.</p>
+      <a class="whatsapp-button" href="https://wa.me/33768453154" target="_blank">📲 Réserver sur WhatsApp</a>
+    </div>
   </section>
 
-  <section class="estimation">
-    <h3>Estimez votre course</h3>
-    <input id="start" placeholder="Adresse de départ">
-    <input id="end" placeholder="Adresse d'arrivée">
-    <button onclick="calculateFare()">Calculer le tarif</button>
-    <p id="result"></p>
-    <p style="font-size: 13px; margin-top: -5px;">Estimation indicative – tarif à confirmer lors de la réservation avec le chauffeur.</p>
-    <a class="whatsapp-button" href="https://wa.me/33612345678" target="_blank">📲 Réserver sur WhatsApp</a>
-  </section>
+  <footer>
+    <p>Chauffeur privé expérimenté basé à Antibes, opérant sur toute la Côte d’Azur depuis plusieurs années.</p>
+    <p>Contact : <a href="tel:+33768453154">07 68 45 31 54</a> • <a href="mailto:contact@servicevtc.fr">contact@servicevtc.fr</a></p>
+  </footer>
 
-  <div class="footer">
-    <p>Basé à Antibes – plusieurs années d'expérience dans le transport de personnes sur la Côte d'Azur. Disponible 7j/7.</p>
-  </div>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places"></script>
   <script>
-    let startInput = document.getElementById("start");
-    let endInput = document.getElementById("end");
-
-    new google.maps.places.Autocomplete(startInput);
-    new google.maps.places.Autocomplete(endInput);
-
     function calculateFare() {
-      const origin = startInput.value;
-      const destination = endInput.value;
+      const start = document.getElementById('start').value;
+      const end = document.getElementById('end').value;
+
+      if (!start || !end) {
+        document.getElementById('result').textContent = "Merci de renseigner les deux adresses.";
+        return;
+      }
+
       const service = new google.maps.DistanceMatrixService();
-      service.getDistanceMatrix(
-        {
-          origins: [origin],
-          destinations: [destination],
-          travelMode: "DRIVING",
-        },
-        (response, status) => {
-          if (status === "OK") {
-            const distanceText = response.rows[0].elements[0].distance.text;
-            const distance = parseFloat(distanceText.replace(",", "."));
-            let price = 0;
-            if (distance <= 7) price = distance * 2.5;
-            else if (distance <= 20) price = (7 * 2.5) + ((distance - 7) * 2.2);
-            else price = (7 * 2.5) + (13 * 2.2) + ((distance - 20) * 2);
+      service.getDistanceMatrix({
+        origins: [start],
+        destinations: [end],
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+      }, (response, status) => {
+        if (status !== 'OK') {
+          document.getElementById('result').textContent = "Erreur de calcul. Vérifiez les adresses.";
+        } else {
+          const distance = response.rows[0].elements[0].distance.value / 1000;
+          let tarif = 0;
 
-            if (origin.toLowerCase().includes("nice") || destination.toLowerCase().includes("nice")) {
-              if (origin.toLowerCase().includes("aéroport") || destination.toLowerCase().includes("aéroport")) {
-                price += 10;
-              }
-            }
+          if (distance <= 7) tarif = distance * 2.5;
+          else if (distance <= 20) tarif = (7 * 2.5) + ((distance - 7) * 2.2);
+          else tarif = (7 * 2.5) + (13 * 2.2) + ((distance - 20) * 2.0);
 
-            if (price < 10) price = 10;
-            document.getElementById("result").innerText = `Estimation : ${price.toFixed(2)} € TTC`;
-          } else {
-            document.getElementById("result").innerText = "Erreur lors du calcul.";
-          }
+          // Supplément aéroport
+          const isAirport = start.toLowerCase().includes('aéroport') || end.toLowerCase().includes('aéroport');
+          if (isAirport) tarif += 10;
+
+          if (tarif < 10) tarif = 10;
+
+          document.getElementById('result').textContent = "Tarif estimé : " + tarif.toFixed(2) + " € TTC";
         }
-      );
+      });
     }
   </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places"></script>
 </body>
 </html>
