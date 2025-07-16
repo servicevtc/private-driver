@@ -156,18 +156,24 @@
       const start = document.getElementById('start').value.toLowerCase();
       const end = document.getElementById('end').value.toLowerCase();
 
-      // Simule une distance pour l'exemple (remplacer par Google Maps Distance Matrix pour du réel)
+      // Distance estimée pour le calcul (à connecter à DistanceMatrix pour être dynamique)
       let km = 12;
       let price = 0;
 
-      if (km <= 7) price = km * 2.5;
-      else if (km <= 20) price = 7 * 2.5 + (km - 7) * 2.2;
-      else price = 7 * 2.5 + 13 * 2.2 + (km - 20) * 2;
+      if (km <= 7) {
+        price = km * 3.0;
+      } else if (km <= 20) {
+        price = 7 * 3.0 + (km - 7) * 2.6;
+      } else {
+        price = 7 * 3.0 + 13 * 2.6 + (km - 20) * 2.2;
+      }
 
+      // Supplément pour l’aéroport
       if (start.includes("aéroport") || end.includes("aéroport")) {
         price += 10;
       }
 
+      // Prix minimum
       if (price < 10) price = 10;
 
       document.getElementById('price-result').textContent = `Estimation : ${price.toFixed(2)} €`;
