@@ -139,7 +139,9 @@
     </p>
   </footer>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places" async defer></script>
+  <!-- ✅ Google Maps API avec callback -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places&callback=initAutocomplete" async defer></script>
+
   <script>
     let autocompleteStart, autocompleteEnd;
 
@@ -147,8 +149,6 @@
       autocompleteStart = new google.maps.places.Autocomplete(document.getElementById('start'));
       autocompleteEnd = new google.maps.places.Autocomplete(document.getElementById('end'));
     }
-
-    window.initAutocomplete = initAutocomplete;
 
     document.getElementById('price-form').addEventListener('submit', function(e) {
       e.preventDefault();
