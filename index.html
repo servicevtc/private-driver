@@ -139,10 +139,7 @@
     </p>
   </footer>
 
-  <!-- Google Maps JS API avec Places -->
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places&callback=initAutocomplete"
-    async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places&callback=initAutocomplete" async defer></script>
   <script>
     let autocompleteStart, autocompleteEnd;
 
@@ -156,7 +153,6 @@
       const start = document.getElementById('start').value.toLowerCase();
       const end = document.getElementById('end').value.toLowerCase();
 
-      // Distance estimée pour le calcul (à connecter à DistanceMatrix pour être dynamique)
       let km = 12;
       let price = 0;
 
@@ -168,15 +164,13 @@
         price = 7 * 3.0 + 13 * 2.6 + (km - 20) * 2.2;
       }
 
-      // Supplément pour l’aéroport
       if (start.includes("aéroport") || end.includes("aéroport")) {
         price += 10;
       }
 
-      // Prix minimum
       if (price < 10) price = 10;
 
-      document.getElementById('price-result').textContent = `Estimation : ${price.toFixed(2)} €`;
+      document.getElementById('price-result').innerHTML = `<strong>Estimation : ${price.toFixed(2)} €</strong>`;
     });
 
     window.initAutocomplete = initAutocomplete;
