@@ -139,7 +139,7 @@
     </p>
   </footer>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places" async defer></script>
   <script>
     let autocompleteStart, autocompleteEnd;
 
@@ -148,32 +148,48 @@
       autocompleteEnd = new google.maps.places.Autocomplete(document.getElementById('end'));
     }
 
+    window.initAutocomplete = initAutocomplete;
+
     document.getElementById('price-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const start = document.getElementById('start').value.toLowerCase();
       const end = document.getElementById('end').value.toLowerCase();
 
-      let km = 12;
-      let price = 0;
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix(
+        {
+          origins: [start],
+          destinations: [end],
+          travelMode: 'DRIVING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+        },
+        function(response, status) {
+          if (status === 'OK') {
+            const distanceText = response.rows[0].elements[0].distance.text;
+            const km = parseFloat(distanceText.replace(',', '.'));
+            let price = 0;
 
-      if (km <= 7) {
-        price = km * 3.0;
-      } else if (km <= 20) {
-        price = 7 * 3.0 + (km - 7) * 2.6;
-      } else {
-        price = 7 * 3.0 + 13 * 2.6 + (km - 20) * 2.2;
-      }
+            if (km <= 7) {
+              price = km * 3.0;
+            } else if (km <= 20) {
+              price = 7 * 3.0 + (km - 7) * 2.6;
+            } else {
+              price = 7 * 3.0 + 13 * 2.6 + (km - 20) * 2.2;
+            }
 
-      if (start.includes("aéroport") || end.includes("aéroport")) {
-        price += 10;
-      }
+            if (start.includes("aéroport") || end.includes("aéroport")) {
+              price += 10;
+            }
 
-      if (price < 10) price = 10;
+            if (price < 10) price = 10;
 
-      document.getElementById('price-result').innerHTML = `<strong>Estimation : ${price.toFixed(2)} €</strong>`;
+            document.getElementById('price-result').innerHTML = `<strong>Estimation : ${price.toFixed(2)} €</strong>`;
+          } else {
+            document.getElementById('price-result').textContent = "Erreur : distance non disponible.";
+          }
+        }
+      );
     });
-
-    window.initAutocomplete = initAutocomplete;
   </script>
 </body>
 </html>
