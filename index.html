@@ -8,9 +8,9 @@
   <style>
     :root{--blue:#005eff;--light:#f0f4ff;--dark:#111;}
     *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
-    body{background:#f5f5f5;color:#333;line-height:1.6;scroll-behavior: smooth;}
+    body{background:#f5f5f5;color:#333;line-height:1.6;scroll-behavior:smooth;}
     header{
-      background: url('https://images.unsplash.com/photo-1607083207184-3d8f04e229f3?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      background:url('javygo-qcMJ_BeDHVE-unsplash.jpg') center/cover no-repeat;
       height:55vh;
       display:flex;
       flex-direction:column;
@@ -32,14 +32,14 @@
     form input,form button{width:100%;padding:.9rem 1rem;font-size:1rem;border-radius:6px;border:1px solid #cdd0d4;margin-bottom:.9rem;}
     button{background:var(--blue);color:#fff;border:none;cursor:pointer;transition:background .3s;}
     button:hover{background:#0041c7;}
-    footer{background:#fff;color:#000;text-align:center;padding:2rem 1rem;font-size:1rem;line-height: 1.6;}
-    footer h2 {color: var(--blue); font-size: 1.5rem; margin-bottom: .5rem; text-transform: uppercase; letter-spacing: 0.5px;}
-    footer a{color:#000;text-decoration:underline;font-weight: 600;display: inline-block;margin-top: .2rem; font-size: 1.05rem;}
-    .calculator{margin: 3rem auto; max-width: 500px; text-align:center;}
+    footer{background:#fff;color:#000;text-align:center;padding:2rem 1rem;font-size:1rem;line-height:1.6;}
+    footer h2{color:var(--blue);font-size:1.5rem;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.5px;}
+    footer a{color:#000;text-decoration:underline;font-weight:600;display:inline-block;margin-top:.2rem;font-size:1.05rem;}
+    .calculator{margin:3rem auto;max-width:500px;text-align:center;}
+    .note{font-size:.85rem;color:#555;margin-top:.5rem;}
   </style>
 </head>
 <body>
-  <!-- header section -->
   <header>
     <h1>Votre Chauffeur Privé VTC</h1>
     <p>Antibes • Cannes • Nice • Monaco • Saint‑Tropez</p>
@@ -54,7 +54,7 @@
       </div>
       <div class="card">
         <h3>Mise à disposition</h3>
-        <p>Chauffeur dédié pour vos rendez-vous professionnels, personnels ou touristiques. <br><strong>Tarif : 80 € TTC / heure</strong></p>
+        <p>Chauffeur dédié pour vos rendez-vous professionnels, personnels ou touristiques.<br><strong>Tarif : 80 € TTC / heure</strong></p>
       </div>
       <div class="card">
         <h3>Événementiel</h3>
@@ -69,9 +69,9 @@
         <input type="text" id="end" placeholder="Adresse d'arrivée" required />
         <button type="submit">Calculer le tarif</button>
       </form>
-      <p><em>* Minimum de facturation : 10 €</em></p>
-      <p><em>* Estimation indicative. Le tarif final sera confirmé par le chauffeur lors de votre prise de contact.</em></p>
-      <p id="price-result"></p>
+      <p class="note">* Minimum de facturation : 10 €</p>
+      <p class="note">* Estimation indicative basée sur la distance par route</p>
+      <p id="price-result" style="margin-top:1rem;font-weight:600;"></p>
     </div>
 
     <div class="about-box">
@@ -85,18 +85,47 @@
       📞 <a href="tel:0615287073">06 15 28 70 73</a><br>
       📧 <a href="mailto:monchauffeurvtc06@gmail.com">monchauffeurvtc06@gmail.com</a>
     </div>
-    <p style="margin-top: 1rem; font-size: 0.85rem; color: #555">© 2025 Votre Chauffeur Privé – Tous droits réservés</p>
+    <p style="margin-top:1rem;font-size:.85rem;color:#555">© 2025 Votre Chauffeur Privé – Tous droits réservés</p>
   </footer>
 
+  <!-- API + Script -->
   <script>
-    document.getElementById('price-form').addEventListener('submit', function(e) {
+    const apiKey = "AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k";
+
+    document.getElementById("price-form").addEventListener("submit", function(e) {
       e.preventDefault();
-      const start = document.getElementById('start').value.trim();
-      const end = document.getElementById('end').value.trim();
-      const basePrice = 10;
-      if (!start || !end) return;
-      document.getElementById('price-result').textContent = `Estimation : ${basePrice} € minimum (simulation simplifiée)`;
+      const origin = document.getElementById("start").value;
+      const destination = document.getElementById("end").value;
+
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: "DRIVING",
+        unitSystem: google.maps.UnitSystem.METRIC
+      }, function(response, status) {
+        if (status !== "OK") {
+          document.getElementById("price-result").textContent = "Erreur lors du calcul. Vérifiez les adresses.";
+        } else {
+          const distanceInKm = response.rows[0].elements[0].distance.value / 1000;
+          let price = 0;
+
+          if (distanceInKm <= 7) {
+            price = distanceInKm * 2.5;
+          } else if (distanceInKm <= 20) {
+            price = (7 * 2.5) + ((distanceInKm - 7) * 2.2);
+          } else {
+            price = (7 * 2.5) + (13 * 2.2) + ((distanceInKm - 20) * 2.0);
+          }
+
+          if (price < 10) price = 10;
+
+          document.getElementById("price-result").textContent =
+            `Distance estimée : ${distanceInKm.toFixed(1)} km – Tarif estimé : ${price.toFixed(2)} €`;
+        }
+      });
     });
   </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places"></script>
 </body>
 </html>
