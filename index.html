@@ -4,153 +4,130 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Votre Chauffeur Privé VTC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places"></script>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #f2f2f2;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
     }
-
     header {
-      background-image: url("javygo-qcMJ_BeDHVE-unsplash.jpg");
+      position: relative;
+      background-image: url('javygo-qcMJ_BeDHVE-unsplash.jpg');
       background-size: cover;
       background-position: center;
-      height: 350px;
+      height: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: white;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-      position: relative;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin: 0;
-    }
-
-    header p {
-      font-size: 1.2em;
-      margin: 10px 0 0;
-    }
-
-    .content {
-      background: white;
-      margin: -60px auto 40px;
-      padding: 40px 20px;
-      width: 90%;
-      max-width: 900px;
-      border-radius: 30px 30px 12px 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    h2 {
       text-align: center;
-      color: #005cff;
-      margin-bottom: 30px;
     }
-
+    header h1 {
+      font-size: 2.2em;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    header p {
+      font-size: 1.1em;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    .content {
+      background-color: white;
+      margin-top: -60px;
+      border-radius: 30px 30px 0 0;
+      padding: 40px 20px 60px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0066ff;
+    }
     .services {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 20px;
+      margin-bottom: 20px;
     }
-
-    .card {
+    .service {
+      background-color: #f0f5ff;
       flex: 1;
-      background-color: #f0f6ff;
       padding: 20px;
       border-radius: 12px;
-      text-align: center;
       min-width: 250px;
+      text-align: center;
     }
-
-    .card h3 {
-      color: #005cff;
+    .service h3 {
+      color: #0066ff;
+      margin-bottom: 10px;
     }
-
-    .info {
-      margin-top: 20px;
+    .info-message {
       text-align: center;
       font-size: 0.95em;
       color: #333;
+      margin-bottom: 30px;
     }
-
     .form {
-      text-align: center;
-      margin-top: 40px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
-
-    input {
-      padding: 10px;
-      width: 90%;
-      max-width: 400px;
-      margin: 10px auto;
-      display: block;
+    input, button {
+      padding: 12px;
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1em;
     }
-
     button {
-      background-color: #005cff;
+      background-color: #0066ff;
       color: white;
       border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-size: 1em;
       cursor: pointer;
-      margin-top: 10px;
     }
-
-    .tarif {
+    #priceResult {
       text-align: center;
       font-weight: bold;
-      margin-top: 15px;
-    }
-
-    .note {
-      text-align: center;
-      font-size: 0.9em;
-      color: #777;
       margin-top: 10px;
     }
-
+    .disclaimer {
+      text-align: center;
+      font-size: 0.85em;
+      color: #555;
+      margin-top: 10px;
+    }
     .whatsapp {
       text-align: center;
-      margin-top: 15px;
+      margin-top: 20px;
     }
-
     .whatsapp a {
-      display: inline-block;
-      background-color: #25d366;
+      background-color: #25D366;
       color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
+      padding: 12px 20px;
+      border-radius: 25px;
       text-decoration: none;
       font-weight: bold;
+      display: inline-block;
     }
 
-    @media screen and (max-width: 768px) {
-      .content {
-        margin-top: -40px;
-        border-radius: 30px 30px 12px 12px;
-        padding-top: 30px;
-      }
-
-      h1 {
-        font-size: 2em;
-      }
-
-      header {
-        height: 300px;
-      }
-
+    @media (max-width: 768px) {
       .services {
         flex-direction: column;
         align-items: center;
+      }
+      .content {
+        padding: 30px 15px 40px;
+        margin-top: -40px;
+      }
+      header {
+        height: 250px;
       }
     }
   </style>
@@ -160,84 +137,90 @@
     <h1>Votre Chauffeur Privé VTC</h1>
     <p>Antibes • Cannes • Nice • Monaco • Saint-Tropez</p>
   </header>
-
   <div class="content">
     <h2>Nos services</h2>
     <div class="services">
-      <div class="card">
+      <div class="service">
         <h3>Transferts aéroports & gares</h3>
-        <p>Nice–Côte d’Azur, Cannes–Mandelieu, Monaco Heliport...</p>
+        <p>Nice–Côte d’Azur, Cannes–Mandelieu, Monaco Heliport…</p>
       </div>
-      <div class="card">
+      <div class="service">
         <h3>Mise à disposition</h3>
         <p>Chauffeur dédié pour vos rendez-vous professionnels, personnels ou touristiques.<br><strong>Tarif : 80 € TTC / heure</strong></p>
       </div>
-      <div class="card">
+      <div class="service">
         <h3>Événementiel</h3>
         <p>Navettes VIP pour mariages, festivals, congrès et soirées privées.</p>
       </div>
     </div>
-    <div class="info">Flotte de véhicules disponible sur demande avec chauffeurs partenaires de confiance.</div>
-
+    <p class="info-message">Flotte de véhicules disponible sur demande avec chauffeurs partenaires de confiance.</p>
+    
+    <h2>Estimez votre course</h2>
     <div class="form">
-      <h2>Estimez votre course</h2>
-      <input type="text" id="start" placeholder="Adresse de départ" />
-      <input type="text" id="end" placeholder="Adresse d’arrivée" />
-      <button onclick="calculerTarif()">Calculer le tarif</button>
-      <div class="tarif" id="resultat"></div>
-      <div class="note">Tarif indicatif, à confirmer lors de la réservation avec le chauffeur.</div>
-      <div class="whatsapp">
-        <a href="https://wa.me/33615287073" target="_blank">Réserver sur WhatsApp</a>
-      </div>
+      <input id="origin" type="text" placeholder="Adresse de départ" />
+      <input id="destination" type="text" placeholder="Adresse d'arrivée" />
+      <button onclick="calculatePrice()">Calculer le tarif</button>
+      <div id="priceResult"></div>
+    </div>
+    <p class="disclaimer">Estimation indicative – tarif à confirmer lors de la réservation avec le chauffeur.</p>
+    <div class="whatsapp">
+      <a href="https://wa.me/33612345678" target="_blank">📲 Réserver sur WhatsApp</a>
     </div>
   </div>
 
   <script>
+    let autocompleteOrigin, autocompleteDestination;
+
     function initAutocomplete() {
-      const options = {
-        types: ['geocode'],
-        componentRestrictions: { country: "fr" }
-      };
-      new google.maps.places.Autocomplete(document.getElementById("start"), options);
-      new google.maps.places.Autocomplete(document.getElementById("end"), options);
+      autocompleteOrigin = new google.maps.places.Autocomplete(document.getElementById("origin"));
+      autocompleteDestination = new google.maps.places.Autocomplete(document.getElementById("destination"));
     }
 
-    function calculerTarif() {
-      const start = document.getElementById("start").value;
-      const end = document.getElementById("end").value;
+    function calculatePrice() {
+      const origin = document.getElementById("origin").value;
+      const destination = document.getElementById("destination").value;
+      const resultDiv = document.getElementById("priceResult");
+
+      if (!origin || !destination) {
+        resultDiv.textContent = "Merci de remplir les deux adresses.";
+        return;
+      }
+
       const service = new google.maps.DistanceMatrixService();
-      service.getDistanceMatrix(
-        {
-          origins: [start],
-          destinations: [end],
-          travelMode: 'DRIVING',
-          unitSystem: google.maps.UnitSystem.METRIC,
-        },
-        (response, status) => {
-          if (status !== 'OK') {
-            document.getElementById("resultat").innerText = "Erreur lors du calcul.";
-            return;
-          }
-          const distanceText = response.rows[0].elements[0].distance.text;
-          const distanceKm = parseFloat(distanceText.replace(",", "."));
-
-          let tarif = 0;
-          if (distanceKm <= 7) tarif = distanceKm * 2.5;
-          else if (distanceKm <= 20) tarif = 7 * 2.5 + (distanceKm - 7) * 2.2;
-          else tarif = 7 * 2.5 + 13 * 2.2 + (distanceKm - 20) * 2.0;
-
-          // Ajout aéroport
-          if (start.toLowerCase().includes("aéroport") || end.toLowerCase().includes("aéroport")) {
-            tarif += 10;
-          }
-
-          if (tarif < 10) tarif = 10;
-
-          document.getElementById("resultat").innerText = `Estimation : ${tarif.toFixed(2)} € TTC`;
+      service.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'DRIVING',
+      }, (response, status) => {
+        if (status !== 'OK') {
+          resultDiv.textContent = "Erreur lors du calcul.";
+          return;
         }
-      );
+
+        const distanceText = response.rows[0].elements[0].distance.text;
+        const distanceValue = response.rows[0].elements[0].distance.value / 1000; // en km
+        let price = 0;
+
+        if (distanceValue <= 7) {
+          price = distanceValue * 2.5;
+        } else if (distanceValue <= 20) {
+          price = (7 * 2.5) + ((distanceValue - 7) * 2.2);
+        } else {
+          price = (7 * 2.5) + (13 * 2.2) + ((distanceValue - 20) * 2.0);
+        }
+
+        // Majoration pour l'aéroport
+        const isAirport = origin.toLowerCase().includes("aéroport") || destination.toLowerCase().includes("aéroport");
+        if (isAirport) price += 10;
+
+        // Minimum de facturation
+        if (price < 10) price = 10;
+
+        resultDiv.textContent = `Tarif estimé : ${price.toFixed(2)} € TTC`;
+      });
     }
+
+    window.onload = initAutocomplete;
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places&callback=initAutocomplete" async defer></script>
 </body>
 </html>
