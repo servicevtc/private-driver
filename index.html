@@ -22,7 +22,15 @@
     }
     header h1{font-size:2.7rem;font-weight:600;margin-bottom:.3rem;text-shadow:0 2px 5px rgba(0,0,0,.45);}
     header p{font-size:1.2rem;opacity:.92;text-shadow:0 2px 4px rgba(0,0,0,.4);}
-    main{max-width:1000px;margin:-3rem auto 2rem;background:#fff;border-radius:12px;padding:2.7rem 1.7rem;box-shadow:0 5px 22px rgba(0,0,0,.08);}
+    .wave{
+      position:absolute;
+      bottom:-1px;
+      width:100%;
+      height:100px;
+      background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%23ffffff" fill-opacity="1" d="M0,64L60,90.7C120,117,240,171,360,181.3C480,192,600,160,720,160C840,160,960,192,1080,213.3C1200,235,1320,245,1380,250.7L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>') no-repeat;
+      background-size:cover;
+    }
+    main{max-width:1000px;margin:-2rem auto 2rem;background:#fff;border-radius:12px;padding:2.7rem 1.7rem;box-shadow:0 5px 22px rgba(0,0,0,.08);}
     h2{color:var(--blue);margin-bottom:1rem;text-align:center;font-weight:600;}
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-bottom:2.2rem;}
     .card{background:var(--light);border-radius:10px;padding:1.6rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);}
@@ -37,16 +45,32 @@
     footer a{color:#000;text-decoration:underline;font-weight:600;display:inline-block;margin-top:.2rem;font-size:1.05rem;}
     .calculator{margin:3rem auto;max-width:500px;text-align:center;}
     .note{font-size:.85rem;color:#555;margin-top:.5rem;}
+    .whatsapp-btn {
+      display:inline-block;
+      background:#25D366;
+      color:white;
+      padding:10px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:600;
+      margin-top:10px;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Votre Chauffeur Privé VTC</h1>
     <p>Antibes • Cannes • Nice • Monaco • Saint‑Tropez</p>
+    <div class="wave"></div>
   </header>
 
   <main>
     <h2>Nos services</h2>
+    <p style="text-align:center; margin-bottom: 2rem; font-size: 1.05rem;">
+      Besoin de plusieurs véhicules ? Nous pouvons mettre à disposition une flotte complète sur demande.<br>
+      Tous nos chauffeurs partenaires partagent les mêmes standards de qualité : ponctualité, sérieux, rigueur et discrétion.<br>
+      Un devis personnalisé vous sera proposé selon vos besoins.
+    </p>
     <div class="services">
       <div class="card">
         <h3>Transferts aéroports & gares</h3>
@@ -83,14 +107,19 @@
     <h2>Contact & Réservation</h2>
     <div>
       📞 <a href="tel:0615287073">06 15 28 70 73</a><br>
-      📧 <a href="mailto:monchauffeurvtc06@gmail.com">monchauffeurvtc06@gmail.com</a>
+      📧 <a href="mailto:monchauffeurvtc06@gmail.com">monchauffeurvtc06@gmail.com</a><br>
+      <a class="whatsapp-btn" href="https://wa.me/33615287073" target="_blank">📱 Réserver via WhatsApp</a>
     </div>
     <p style="margin-top:1rem;font-size:.85rem;color:#555">© 2025 Votre Chauffeur Privé – Tous droits réservés</p>
   </footer>
 
-  <!-- API + Script -->
   <script>
     const apiKey = "AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k";
+
+    function initializeAutocomplete() {
+      new google.maps.places.Autocomplete(document.getElementById("start"));
+      new google.maps.places.Autocomplete(document.getElementById("end"));
+    }
 
     document.getElementById("price-form").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -109,7 +138,6 @@
         } else {
           const distanceInKm = response.rows[0].elements[0].distance.value / 1000;
           let price = 0;
-
           if (distanceInKm <= 7) {
             price = distanceInKm * 2.5;
           } else if (distanceInKm <= 20) {
@@ -117,7 +145,6 @@
           } else {
             price = (7 * 2.5) + (13 * 2.2) + ((distanceInKm - 20) * 2.0);
           }
-
           if (price < 10) price = 10;
 
           document.getElementById("price-result").textContent =
@@ -126,6 +153,6 @@
       });
     });
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz1sjQEMHqViwfAKUdYskUx13OiIVUi-k&libraries=places&callback=initializeAutocomplete" async defer></script>
 </body>
 </html>
