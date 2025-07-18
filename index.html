@@ -111,7 +111,7 @@
         <input type="text" id="end" placeholder="Adresse d'arrivée" required />
         <button type="submit">Calculer le tarif</button>
       </form>
-      <p><em>* Minimum de facturation : 10 €</em></p>
+      <p><em>* Minimum de facturation : 15 €</em></p>
       <p><em>* Estimation indicative. Tarif à confirmer avec le chauffeur.</em></p>
       <p id="price-result"></p>
     </div>
@@ -167,21 +167,13 @@
           if (status === 'OK') {
             const distanceText = response.rows[0].elements[0].distance.text;
             const km = parseFloat(distanceText.replace(',', '.'));
-            let price = 0;
-
-            if (km <= 7) {
-              price = km * 3.0;
-            } else if (km <= 20) {
-              price = 7 * 3.0 + (km - 7) * 2.6;
-            } else {
-              price = 7 * 3.0 + 13 * 2.6 + (km - 20) * 2.2;
-            }
+            let price = km * 2.5;
 
             if (start.includes("aéroport") || end.includes("aéroport")) {
               price += 10;
             }
 
-            if (price < 10) price = 10;
+            if (price < 15) price = 15;
 
             document.getElementById('price-result').innerHTML = `<strong>Estimation : ${price.toFixed(2)} €</strong>`;
           } else {
