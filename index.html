@@ -167,7 +167,7 @@
           if (status === 'OK') {
             const distanceText = response.rows[0].elements[0].distance.text;
             const km = parseFloat(distanceText.replace(',', '.'));
-            let price = km * 2.5;
+            let price = km * 2.1;
 
             if (start.includes("aéroport") || end.includes("aéroport")) {
               price += 10;
